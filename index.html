@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajouter XAFS à MetaMask</title>
+</head>
+<body style="text-align:center; margin-top:100px; font-family:Arial;">
+
+  <h2>Ajouter XAFS à MetaMask</h2>
+
+  <button onclick="addToken()" style="padding:15px 30px; font-size:18px;">
+    Ajouter le Token
+  </button>
+
+  <script>
+    async function addToken() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const wasAdded = await ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+              type: 'ERC20',
+              options: {
+                address: '0x83F685A733264e421087ca52b66C4c1aE0aA6c37',  // ton token
+                symbol: 'XAFS',
+                decimals: 18,
+                image: 'https://raw.githubusercontent.com/fotsoromevrard-art/xafs-logo/main/logo.png', // ton logo
+              },
+            },
+          });
+
+          if (wasAdded) {
+            alert('Token ajouté avec succès !');
+          } else {
+            alert('Ajout annulé.');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Erreur : ' + error.message);
+        }
+      } else {
+        alert("MetaMask non détecté. Installez MetaMask pour continuer.");
+      }
+    }
+  </script>
+
+</body>
+</html>
